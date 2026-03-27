@@ -36,10 +36,10 @@ for subject_dir in ${base_dir}/sub-*; do
             continue
         fi  
 
-	# Remove outputs, if previously created
+	    # Remove outputs, if previously created
         rm -f "${session_dir}/FUNCTIONAL.ica/temp"*
 
-	# Define the paths to the preprocessed fMRI
+	    # Define the paths to the preprocessed fMRI
         bold="${session_dir}/FUNCTIONAL.ica/FUNCTIONAL_wds_std.nii.gz"
 
         # Check if the BOLD file exists
@@ -48,7 +48,7 @@ for subject_dir in ${base_dir}/sub-*; do
             continue
         fi
 	
-	# Bandpass filtering
+	    # Bandpass filtering
         bold_bp="${session_dir}/FUNCTIONAL.ica/temp_BP.nii.gz"
         3dBandpass -prefix "${bold_bp}" 0.01 0.08 "${bold}"
 
@@ -63,11 +63,11 @@ for subject_dir in ${base_dir}/sub-*; do
         # Compute fALFF
         # step1
         bold_sd="${session_dir}/FUNCTIONAL.ica/temp_sd.nii.gz"
-	3dTstat -stdev -mask "${mask}" -prefix "${bold_sd}" "${bold}"
+	    3dTstat -stdev -mask "${mask}" -prefix "${bold_sd}" "${bold}"
         
-	# step2
+	    # step2
         falff_output="${session_dir}/FUNCTIONAL.ica/temp_falff.nii.gz"
-	3dcalc -prefix "${falff_output}" -a "${mask}" -b "${alff_output}" -c "${bold_sd}" -expr '(1.0*bool(a))*((1.0*b)/(1.0*c))' -float
+	    3dcalc -prefix "${falff_output}" -a "${mask}" -b "${alff_output}" -c "${bold_sd}" -expr '(1.0*bool(a))*((1.0*b)/(1.0*c))' -float
 
         # Compute z-scores for ALFF
         alff_mean_file="${session_dir}/FUNCTIONAL.ica/temp_mean_alff.txt"
@@ -81,7 +81,7 @@ for subject_dir in ${base_dir}/sub-*; do
 
         fslmaths "${alff_output}" -sub ${alff_mean} -div ${alff_sd} -mas "${mask}" "${z_alff_output}"
 	
-	# Compute z-scores for fALFF
+	    # Compute z-scores for fALFF
         falff_mean_file="${session_dir}/FUNCTIONAL.ica/temp_mean_falff.txt"
         falff_sd_file="${session_dir}/FUNCTIONAL.ica/temp_sd_falff.txt"
 
