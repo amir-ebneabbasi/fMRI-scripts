@@ -1,4 +1,4 @@
-# fMRI ALFF Processing Pipeline
+# fMRI ALFF Pipeline
 
 A **bash-based pipeline** for computing ALFF (Amplitude of Low-Frequency Fluctuations) and fALFF from preprocessed fMRI data and registering the outputs to **FreeSurfer T1 template space**.
 
